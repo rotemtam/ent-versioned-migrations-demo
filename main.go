@@ -5,12 +5,12 @@ import (
 	"log"
 
 	"entgo.io/ent/dialect"
-	_ "github.com/mattn/go-sqlite3"
+	_ "github.com/go-sql-driver/mysql"
 	"github.com/rotemtam/ent-versioned-migrations-demo/ent"
 )
 
 func main() {
-	client, err := ent.Open(dialect.SQLite, "file:ent?mode=memory&cache=shared&_fk=1")
+	client, err := ent.Open(dialect.MySQL, "root:pass@tcp(localhost:3306)/db?parseTime=True")
 	if err != nil {
 		log.Fatalf("failed opening connection to sqlite: %v", err)
 	}
@@ -30,13 +30,16 @@ func main() {
 
 func seed(ctx context.Context, client *ent.Client) error {
 	for _, name := range []string{"rotemtam", "a8m", "jcl"} {
-		client.User.Create().
+		_, err := client.User.Create().
 			SetName(name).
 			SetEmail(name + "@gmail.com").
 			AddBlogPosts(
 				client.Blog.Create().SetTitle(name + "'s first post").SetBody("content").SaveX(ctx),
 			).
-			SaveX(ctx)
+			Save(ctx)
+		if !ent.IsConstraintError(err) {
+			return err
+		}
 	}
 	return nil
 }
