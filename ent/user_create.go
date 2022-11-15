@@ -32,6 +32,20 @@ func (uc *UserCreate) SetEmail(s string) *UserCreate {
 	return uc
 }
 
+// SetTitle sets the "title" field.
+func (uc *UserCreate) SetTitle(s string) *UserCreate {
+	uc.mutation.SetTitle(s)
+	return uc
+}
+
+// SetNillableTitle sets the "title" field if the given value is not nil.
+func (uc *UserCreate) SetNillableTitle(s *string) *UserCreate {
+	if s != nil {
+		uc.SetTitle(*s)
+	}
+	return uc
+}
+
 // AddBlogPostIDs adds the "blog_posts" edge to the Blog entity by IDs.
 func (uc *UserCreate) AddBlogPostIDs(ids ...int) *UserCreate {
 	uc.mutation.AddBlogPostIDs(ids...)
@@ -163,6 +177,10 @@ func (uc *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 	if value, ok := uc.mutation.Email(); ok {
 		_spec.SetField(user.FieldEmail, field.TypeString, value)
 		_node.Email = value
+	}
+	if value, ok := uc.mutation.Title(); ok {
+		_spec.SetField(user.FieldTitle, field.TypeString, value)
+		_node.Title = value
 	}
 	if nodes := uc.mutation.BlogPostsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
