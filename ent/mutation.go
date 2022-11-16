@@ -734,22 +734,9 @@ func (m *UserMutation) OldTitle(ctx context.Context) (v string, err error) {
 	return oldValue.Title, nil
 }
 
-// ClearTitle clears the value of the "title" field.
-func (m *UserMutation) ClearTitle() {
-	m.title = nil
-	m.clearedFields[user.FieldTitle] = struct{}{}
-}
-
-// TitleCleared returns if the "title" field was cleared in this mutation.
-func (m *UserMutation) TitleCleared() bool {
-	_, ok := m.clearedFields[user.FieldTitle]
-	return ok
-}
-
 // ResetTitle resets all changes to the "title" field.
 func (m *UserMutation) ResetTitle() {
 	m.title = nil
-	delete(m.clearedFields, user.FieldTitle)
 }
 
 // AddBlogPostIDs adds the "blog_posts" edge to the Blog entity by ids.
@@ -923,11 +910,7 @@ func (m *UserMutation) AddField(name string, value ent.Value) error {
 // ClearedFields returns all nullable fields that were cleared during this
 // mutation.
 func (m *UserMutation) ClearedFields() []string {
-	var fields []string
-	if m.FieldCleared(user.FieldTitle) {
-		fields = append(fields, user.FieldTitle)
-	}
-	return fields
+	return nil
 }
 
 // FieldCleared returns a boolean indicating if a field with the given name was
@@ -940,11 +923,6 @@ func (m *UserMutation) FieldCleared(name string) bool {
 // ClearField clears the value of the field with the given name. It returns an
 // error if the field is not defined in the schema.
 func (m *UserMutation) ClearField(name string) error {
-	switch name {
-	case user.FieldTitle:
-		m.ClearTitle()
-		return nil
-	}
 	return fmt.Errorf("unknown User nullable field %s", name)
 }
 

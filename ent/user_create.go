@@ -38,14 +38,6 @@ func (uc *UserCreate) SetTitle(s string) *UserCreate {
 	return uc
 }
 
-// SetNillableTitle sets the "title" field if the given value is not nil.
-func (uc *UserCreate) SetNillableTitle(s *string) *UserCreate {
-	if s != nil {
-		uc.SetTitle(*s)
-	}
-	return uc
-}
-
 // AddBlogPostIDs adds the "blog_posts" edge to the Blog entity by IDs.
 func (uc *UserCreate) AddBlogPostIDs(ids ...int) *UserCreate {
 	uc.mutation.AddBlogPostIDs(ids...)
@@ -142,6 +134,9 @@ func (uc *UserCreate) check() error {
 	}
 	if _, ok := uc.mutation.Email(); !ok {
 		return &ValidationError{Name: "email", err: errors.New(`ent: missing required field "User.email"`)}
+	}
+	if _, ok := uc.mutation.Title(); !ok {
+		return &ValidationError{Name: "title", err: errors.New(`ent: missing required field "User.title"`)}
 	}
 	return nil
 }

@@ -16,7 +16,7 @@ func (User) Fields() []ent.Field {
 	return []ent.Field{
 		field.String("name"),
 		field.String("email").Unique(),
-		field.String("title").Optional(),
+		field.String("title"),
 	}
 }
 

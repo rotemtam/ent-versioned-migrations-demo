@@ -1,4 +1,5 @@
-h1:VpJUJDPzxojf+M1wZUm/7E0NtOLgDdr1USGdV0zDWoQ=
+h1:H9R4pgif+KnbsC4AxTzwoOeX2x7nCsyvNa5e4H2yjqw=
 20221114165732_initialize.sql h1:/33+7ubMlxuTkW6Ry55HeGEZQ58JqrzaAl2x1TmUTdE=
 20221115101649_add_user_title.sql h1:hZjnp+uEOEAflKFAlFglisd7/TqZpJIUmf3oMFKxzNw=
 20221115102552_seed_users.sql h1:vOUTtlZzSwZm7fSQ5DePQrJklRlniHl65tUQOPICMWA=
+20221116051710_user_title_required.sql h1:/dhkTYPOQTqmTGuFhOZ+1u3Mx7xnuWdnTaCFVW8/Tyk=
