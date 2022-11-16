@@ -46,20 +46,6 @@ func (uu *UserUpdate) SetTitle(s string) *UserUpdate {
 	return uu
 }
 
-// SetNillableTitle sets the "title" field if the given value is not nil.
-func (uu *UserUpdate) SetNillableTitle(s *string) *UserUpdate {
-	if s != nil {
-		uu.SetTitle(*s)
-	}
-	return uu
-}
-
-// ClearTitle clears the value of the "title" field.
-func (uu *UserUpdate) ClearTitle() *UserUpdate {
-	uu.mutation.ClearTitle()
-	return uu
-}
-
 // AddBlogPostIDs adds the "blog_posts" edge to the Blog entity by IDs.
 func (uu *UserUpdate) AddBlogPostIDs(ids ...int) *UserUpdate {
 	uu.mutation.AddBlogPostIDs(ids...)
@@ -182,9 +168,6 @@ func (uu *UserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	if value, ok := uu.mutation.Title(); ok {
 		_spec.SetField(user.FieldTitle, field.TypeString, value)
 	}
-	if uu.mutation.TitleCleared() {
-		_spec.ClearField(user.FieldTitle, field.TypeString)
-	}
 	if uu.mutation.BlogPostsCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
@@ -273,20 +256,6 @@ func (uuo *UserUpdateOne) SetEmail(s string) *UserUpdateOne {
 // SetTitle sets the "title" field.
 func (uuo *UserUpdateOne) SetTitle(s string) *UserUpdateOne {
 	uuo.mutation.SetTitle(s)
-	return uuo
-}
-
-// SetNillableTitle sets the "title" field if the given value is not nil.
-func (uuo *UserUpdateOne) SetNillableTitle(s *string) *UserUpdateOne {
-	if s != nil {
-		uuo.SetTitle(*s)
-	}
-	return uuo
-}
-
-// ClearTitle clears the value of the "title" field.
-func (uuo *UserUpdateOne) ClearTitle() *UserUpdateOne {
-	uuo.mutation.ClearTitle()
 	return uuo
 }
 
@@ -441,9 +410,6 @@ func (uuo *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) 
 	}
 	if value, ok := uuo.mutation.Title(); ok {
 		_spec.SetField(user.FieldTitle, field.TypeString, value)
-	}
-	if uuo.mutation.TitleCleared() {
-		_spec.ClearField(user.FieldTitle, field.TypeString)
 	}
 	if uuo.mutation.BlogPostsCleared() {
 		edge := &sqlgraph.EdgeSpec{
