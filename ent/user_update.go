@@ -40,6 +40,12 @@ func (uu *UserUpdate) SetEmail(s string) *UserUpdate {
 	return uu
 }
 
+// SetTitle sets the "title" field.
+func (uu *UserUpdate) SetTitle(s string) *UserUpdate {
+	uu.mutation.SetTitle(s)
+	return uu
+}
+
 // AddBlogPostIDs adds the "blog_posts" edge to the Blog entity by IDs.
 func (uu *UserUpdate) AddBlogPostIDs(ids ...int) *UserUpdate {
 	uu.mutation.AddBlogPostIDs(ids...)
@@ -159,6 +165,9 @@ func (uu *UserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	if value, ok := uu.mutation.Email(); ok {
 		_spec.SetField(user.FieldEmail, field.TypeString, value)
 	}
+	if value, ok := uu.mutation.Title(); ok {
+		_spec.SetField(user.FieldTitle, field.TypeString, value)
+	}
 	if uu.mutation.BlogPostsCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
@@ -241,6 +250,12 @@ func (uuo *UserUpdateOne) SetName(s string) *UserUpdateOne {
 // SetEmail sets the "email" field.
 func (uuo *UserUpdateOne) SetEmail(s string) *UserUpdateOne {
 	uuo.mutation.SetEmail(s)
+	return uuo
+}
+
+// SetTitle sets the "title" field.
+func (uuo *UserUpdateOne) SetTitle(s string) *UserUpdateOne {
+	uuo.mutation.SetTitle(s)
 	return uuo
 }
 
@@ -392,6 +407,9 @@ func (uuo *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) 
 	}
 	if value, ok := uuo.mutation.Email(); ok {
 		_spec.SetField(user.FieldEmail, field.TypeString, value)
+	}
+	if value, ok := uuo.mutation.Title(); ok {
+		_spec.SetField(user.FieldTitle, field.TypeString, value)
 	}
 	if uuo.mutation.BlogPostsCleared() {
 		edge := &sqlgraph.EdgeSpec{

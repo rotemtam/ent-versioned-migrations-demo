@@ -5,12 +5,12 @@ import (
 	"log"
 
 	"entgo.io/ent/dialect"
-	_ "github.com/mattn/go-sqlite3"
+	_ "github.com/go-sql-driver/mysql"
 	"github.com/rotemtam/ent-versioned-migrations-demo/ent"
 )
 
 func main() {
-	client, err := ent.Open(dialect.SQLite, "file:ent?mode=memory&cache=shared&_fk=1")
+	client, err := ent.Open(dialect.MySQL, "root:pass@tcp(localhost:3306)/db?parseTime=True")
 	if err != nil {
 		log.Fatalf("failed opening connection to sqlite: %v", err)
 	}

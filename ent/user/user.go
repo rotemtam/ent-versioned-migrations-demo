@@ -11,6 +11,8 @@ const (
 	FieldName = "name"
 	// FieldEmail holds the string denoting the email field in the database.
 	FieldEmail = "email"
+	// FieldTitle holds the string denoting the title field in the database.
+	FieldTitle = "title"
 	// EdgeBlogPosts holds the string denoting the blog_posts edge name in mutations.
 	EdgeBlogPosts = "blog_posts"
 	// Table holds the table name of the user in the database.
@@ -29,6 +31,7 @@ var Columns = []string{
 	FieldID,
 	FieldName,
 	FieldEmail,
+	FieldTitle,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).

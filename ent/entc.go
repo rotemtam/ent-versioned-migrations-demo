@@ -11,7 +11,10 @@ import (
 )
 
 func main() {
-	if err := entc.Generate("./schema", &gen.Config{}); err != nil {
+
+	if err := entc.Generate("./schema", &gen.Config{
+		Features: []gen.Feature{gen.FeatureVersionedMigration},
+	}); err != nil {
 		log.Fatalf("running ent codegen: %v", err)
 	}
 }

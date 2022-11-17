@@ -4,6 +4,8 @@ go 1.19
 
 require entgo.io/ent v0.11.5-0.20221114115835-8a8c72f37723
 
+require github.com/go-sql-driver/mysql v1.6.0 // indirect
+
 require (
 	ariga.io/atlas v0.8.2-0.20221113160047-09851f798b12 // indirect
 	github.com/agext/levenshtein v1.2.1 // indirect

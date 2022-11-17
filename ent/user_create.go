@@ -32,6 +32,12 @@ func (uc *UserCreate) SetEmail(s string) *UserCreate {
 	return uc
 }
 
+// SetTitle sets the "title" field.
+func (uc *UserCreate) SetTitle(s string) *UserCreate {
+	uc.mutation.SetTitle(s)
+	return uc
+}
+
 // AddBlogPostIDs adds the "blog_posts" edge to the Blog entity by IDs.
 func (uc *UserCreate) AddBlogPostIDs(ids ...int) *UserCreate {
 	uc.mutation.AddBlogPostIDs(ids...)
@@ -129,6 +135,9 @@ func (uc *UserCreate) check() error {
 	if _, ok := uc.mutation.Email(); !ok {
 		return &ValidationError{Name: "email", err: errors.New(`ent: missing required field "User.email"`)}
 	}
+	if _, ok := uc.mutation.Title(); !ok {
+		return &ValidationError{Name: "title", err: errors.New(`ent: missing required field "User.title"`)}
+	}
 	return nil
 }
 
@@ -163,6 +172,10 @@ func (uc *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 	if value, ok := uc.mutation.Email(); ok {
 		_spec.SetField(user.FieldEmail, field.TypeString, value)
 		_node.Email = value
+	}
+	if value, ok := uc.mutation.Title(); ok {
+		_spec.SetField(user.FieldTitle, field.TypeString, value)
+		_node.Title = value
 	}
 	if nodes := uc.mutation.BlogPostsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
